@@ -1,7 +1,7 @@
 // frontend/src/components/Home.test.js
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Home from './Home';
+import Home from './Home.js';
 import axios from 'axios';
 
 jest.mock('axios');
