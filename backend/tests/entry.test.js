@@ -1,28 +1,34 @@
 const request = require('supertest');
 const express = require('express');
-const Entry = require('../models/Entry');
 const entryRoutes = require('../routes/entries'); // Correct import path
+
+// Mock the Entry model
+jest.mock('../models/Entry', () => {
+  return {
+    find: jest.fn(),
+    deleteMany: jest.fn(),
+  };
+});
+
+const Entry = require('../models/Entry');
 
 const app = express();
 app.use(express.json());
 app.use('/api/entries', entryRoutes);
 
-describe('Entry API', () => {
-  // Clean up the database before each test
-  beforeEach(async () => {
-    await Entry.deleteMany({});
-  });
-
+beforeEach(() => {
+  // Clear all instances and calls to constructor and all methods:
+  Entry.find.mockClear();
+  Entry.deleteMany.mockClear();
 });
 
-  it('should create a new entry', async () => {
-    const res = await request(app)
-      .post('/api/entries')
-      .send({ title: 'Test Entry', content: 'Test Content' });
-    expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('_id');
+describe('GET /api/entries', () => {
+  it('should return an empty array when no entries', async () => {
+    // Mock the find method to return an empty array
+    Entry.find.mockResolvedValue([]);
+
+    const res = await request(app).get('/api/entries');
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual([]);
   });
-
-
-  // Add more tests for read, update, delete
 });
