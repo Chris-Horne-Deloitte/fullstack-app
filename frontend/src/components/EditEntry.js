@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EditEntry = () => {
   const { id } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`/api/entries/${id}`)
@@ -26,7 +26,7 @@ const EditEntry = () => {
       },
       body: JSON.stringify({ title, content })
     });
-    history.push('/');
+    navigate('/');
   };
 
   return (

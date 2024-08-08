@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CreateEntry = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ const CreateEntry = () => {
       },
       body: JSON.stringify({ title, content })
     });
-    history.push('/');
+    navigate('/');
   };
 
   return (
