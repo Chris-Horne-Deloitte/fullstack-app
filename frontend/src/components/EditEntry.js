@@ -1,6 +1,4 @@
-// frontend/src/components/EditEntry.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 
 const EditEntry = () => {
@@ -10,17 +8,24 @@ const EditEntry = () => {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get(`/api/entries/${id}`)
-      .then(response => {
-        setTitle(response.data.title);
-        setContent(response.data.content);
+    fetch(`/api/entries/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setTitle(data.title);
+        setContent(data.content);
       })
       .catch(error => console.error(error));
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`/api/entries/${id}`, { title, content });
+    await fetch(`/api/entries/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title, content })
+    });
     history.push('/');
   };
 

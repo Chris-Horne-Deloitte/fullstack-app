@@ -1,6 +1,4 @@
-// frontend/src/components/CreateEntry.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 const CreateEntry = () => {
@@ -10,7 +8,13 @@ const CreateEntry = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('/api/entries', { title, content });
+    await fetch('/api/entries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title, content })
+    });
     history.push('/');
   };
 
