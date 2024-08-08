@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "chris-horne-deloitte",
+        "projectKey": "Chris-Horne-Deloitte_fullstack-app"
+    }
+}
