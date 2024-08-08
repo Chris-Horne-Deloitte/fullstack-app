@@ -1,10 +1,6 @@
-// backend/routes/entries.js
 const express = require('express');
 const router = express.Router();
 const Entry = require('../models/Entry');
-const entryRoutes = require('./routes/entries');
-
-app.use('/api/entries', entryRoutes);
 
 // Create
 router.post('/', async (req, res) => {

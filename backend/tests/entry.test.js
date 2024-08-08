@@ -1,9 +1,8 @@
-// backend/tests/entry.test.js
 const request = require('supertest');
 const express = require('express');
 const mongoose = require('mongoose');
 const Entry = require('../models/Entry');
-const entryRoutes = require('../routes/entries');
+const entryRoutes = require('../routes/entries'); // Correct import path
 
 const app = express();
 app.use(express.json());
