@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const Home = () => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    fetch('/api/entries')
-      .then(response => response.json())
-      .then(data => setEntries(data))
-      .catch(error => console.error(error));
+    fetchEntries();
   }, []);
+
+  const fetchEntries = async () => {
+    try {
+      const response = await fetch('/api/entries');
+      const data = await response.json();
+      setEntries(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
